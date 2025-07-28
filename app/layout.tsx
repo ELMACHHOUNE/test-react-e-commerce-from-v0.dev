@@ -4,6 +4,7 @@ import { GeistSans } from "geist/font/sans"
 import { GeistMono } from "geist/font/mono"
 import { Playfair_Display } from "next/font/google"
 import { CartProvider } from "@/contexts/cart-context"
+import { WishlistProvider } from "@/contexts/wishlist-context"
 import { AuthProvider } from "@/contexts/auth-context"
 import { Toaster } from "@/components/ui/toaster"
 import "./globals.css"
@@ -39,8 +40,10 @@ html {
       <body>
         <AuthProvider>
           <CartProvider>
-            {children}
-            <Toaster />
+            <WishlistProvider>
+              {children}
+              <Toaster />
+            </WishlistProvider>
           </CartProvider>
         </AuthProvider>
       </body>

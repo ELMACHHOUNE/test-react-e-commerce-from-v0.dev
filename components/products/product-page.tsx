@@ -8,6 +8,8 @@ import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useToast } from "@/hooks/use-toast"
+import { useCart } from "@/contexts/cart-context"
+import { useWishlist } from "@/contexts/wishlist-context"
 
 interface Product {
   id: number
@@ -29,22 +31,24 @@ interface ProductPageProps {
 export function ProductPage({ product }: ProductPageProps) {
   const [selectedImage, setSelectedImage] = useState(0)
   const [quantity, setQuantity] = useState(1)
-  const [isWishlisted, setIsWishlisted] = useState(false)
   const { toast } = useToast()
+  const { addToCart } = useCart()
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist()
+
+  const isWishlisted = isInWishlist(product.id)
 
   const handleAddToCart = () => {
-    toast({
-      title: "Added to cart!",
-      description: `${product.name} has been added to your cart.`,
-    })
+    for (let i = 0; i < quantity; i++) {
+      addToCart(product)
+    }
   }
 
   const handleWishlist = () => {
-    setIsWishlisted(!isWishlisted)
-    toast({
-      title: isWishlisted ? "Removed from wishlist" : "Added to wishlist",
-      description: `${product.name} has been ${isWishlisted ? "removed from" : "added to"} your wishlist.`,
-    })
+    if (isWishlisted) {
+      removeFromWishlist(product.id)
+    } else {
+      addToWishlist(product)
+    }
   }
 
   return (
