@@ -3,6 +3,9 @@ import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
 import { GeistMono } from "geist/font/mono"
 import { Playfair_Display } from "next/font/google"
+import { CartProvider } from "@/contexts/cart-context"
+import { AuthProvider } from "@/contexts/auth-context"
+import { Toaster } from "@/components/ui/toaster"
 import "./globals.css"
 
 const playfair = Playfair_Display({
@@ -12,8 +15,8 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: "v0 App",
-  description: "Created with v0",
+  title: "Minimalist - Modern E-commerce",
+  description: "Curating beautiful, minimalist products for modern living",
   generator: "v0.dev",
 }
 
@@ -33,7 +36,14 @@ html {
 }
         `}</style>
       </head>
-      <body>{children}</body>
+      <body>
+        <AuthProvider>
+          <CartProvider>
+            {children}
+            <Toaster />
+          </CartProvider>
+        </AuthProvider>
+      </body>
     </html>
   )
 }

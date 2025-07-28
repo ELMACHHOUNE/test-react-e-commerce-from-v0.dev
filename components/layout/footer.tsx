@@ -4,6 +4,8 @@ import { NewsletterForm } from "@/components/ui/newsletter-form"
 import { Separator } from "@/components/ui/separator"
 
 export function Footer() {
+  const currentYear = new Date().getFullYear()
+
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="container mx-auto px-4 py-12">
@@ -101,6 +103,12 @@ export function Footer() {
               >
                 Privacy Policy
               </Link>
+              <Link
+                href="/terms"
+                className="block text-sm text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+              >
+                Terms of Service
+              </Link>
             </div>
           </div>
 
@@ -131,7 +139,7 @@ export function Footer() {
         <Separator className="my-8 bg-primary-foreground/20" />
 
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <p className="text-sm text-primary-foreground/80">© 2024 Minimalist. All rights reserved.</p>
+          <p className="text-sm text-primary-foreground/80">© {currentYear} Minimalist. All rights reserved.</p>
           <div className="flex space-x-6">
             <Link
               href="/terms"

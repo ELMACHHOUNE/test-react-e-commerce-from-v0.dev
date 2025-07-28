@@ -2,14 +2,17 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Menu, X, ShoppingCart, User, Heart } from "lucide-react"
+import { Menu, X, Heart } from "lucide-react"
 import { CustomButton } from "@/components/ui/custom-button"
 import { SearchForm } from "@/components/ui/search-form"
-import { Badge } from "@/components/ui/badge"
+import { CartSheet } from "@/components/cart/cart-sheet"
+import { AuthDialog } from "@/components/auth/auth-dialog"
+import { UserMenu } from "@/components/auth/user-menu"
+import { useAuth } from "@/contexts/auth-context"
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [cartCount] = useState(3) // This would come from your cart state
+  const { isAuthenticated } = useAuth()
 
   const handleSearch = (query: string) => {
     console.log("Searching for:", query)
@@ -55,15 +58,8 @@ export function Navbar() {
             <CustomButton variant="ghost" size="icon">
               <Heart className="h-5 w-5" />
             </CustomButton>
-            <CustomButton variant="ghost" size="icon" className="relative">
-              <ShoppingCart className="h-5 w-5" />
-              {cartCount > 0 && (
-                <Badge className="absolute -right-2 -top-2 h-5 w-5 rounded-full p-0 text-xs">{cartCount}</Badge>
-              )}
-            </CustomButton>
-            <CustomButton variant="ghost" size="icon">
-              <User className="h-5 w-5" />
-            </CustomButton>
+            <CartSheet />
+            {isAuthenticated ? <UserMenu /> : <AuthDialog />}
           </div>
 
           {/* Mobile Menu Button */}
@@ -121,15 +117,8 @@ export function Navbar() {
                 <CustomButton variant="ghost" size="icon">
                   <Heart className="h-5 w-5" />
                 </CustomButton>
-                <CustomButton variant="ghost" size="icon" className="relative">
-                  <ShoppingCart className="h-5 w-5" />
-                  {cartCount > 0 && (
-                    <Badge className="absolute -right-2 -top-2 h-5 w-5 rounded-full p-0 text-xs">{cartCount}</Badge>
-                  )}
-                </CustomButton>
-                <CustomButton variant="ghost" size="icon">
-                  <User className="h-5 w-5" />
-                </CustomButton>
+                <CartSheet />
+                {isAuthenticated ? <UserMenu /> : <AuthDialog />}
               </div>
             </div>
           </div>
