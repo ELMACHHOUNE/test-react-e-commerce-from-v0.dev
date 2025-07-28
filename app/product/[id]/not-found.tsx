@@ -1,57 +1,54 @@
-"use client"
-
 import Link from "next/link"
 import { CustomButton } from "@/components/ui/custom-button"
-import { ShoppingBag, ArrowLeft, Search } from "lucide-react"
+import { Layout } from "@/components/layout/layout"
+import { Home, ShoppingBag, Search } from "lucide-react"
 
 export default function ProductNotFound() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center space-y-6 px-4">
-        <div className="space-y-4">
-          <div className="mx-auto w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center">
-            <ShoppingBag className="h-12 w-12 text-primary/50" />
+    <Layout>
+      <div className="container mx-auto px-4 py-16">
+        <div className="text-center max-w-2xl mx-auto">
+          <div className="mb-8">
+            <div className="text-6xl mb-4">🔍</div>
+            <h1 className="text-3xl font-bold font-serif mb-4">Product Not Found</h1>
+            <p className="text-muted-foreground text-lg">
+              We couldn't find the product you're looking for. It might have been removed, sold out, or the link might
+              be incorrect.
+            </p>
           </div>
-          <h1 className="text-3xl font-bold text-foreground">Product Not Found</h1>
-          <p className="text-muted-foreground max-w-md mx-auto">
-            The product you're looking for doesn't exist or has been removed from our catalog.
-          </p>
-        </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <CustomButton asChild>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <Link href="/products">
-              <Search className="h-4 w-4 mr-2" />
-              Browse Products
+              <CustomButton className="w-full sm:w-auto">
+                <ShoppingBag className="h-4 w-4 mr-2" />
+                Browse All Products
+              </CustomButton>
             </Link>
-          </CustomButton>
-          <CustomButton variant="outline" onClick={() => window.history.back()}>
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Go Back
-          </CustomButton>
-        </div>
+            <Link href="/categories">
+              <CustomButton variant="outline" className="w-full sm:w-auto">
+                <Search className="h-4 w-4 mr-2" />
+                Shop by Category
+              </CustomButton>
+            </Link>
+            <Link href="/">
+              <CustomButton variant="outline" className="w-full sm:w-auto">
+                <Home className="h-4 w-4 mr-2" />
+                Go Home
+              </CustomButton>
+            </Link>
+          </div>
 
-        <div className="pt-8 border-t border-accent/20">
-          <p className="text-sm text-muted-foreground mb-4">Explore our categories:</p>
-          <div className="flex flex-wrap gap-2 justify-center">
-            <Link href="/products?category=furniture" className="text-sm text-primary hover:underline">
-              Furniture
-            </Link>
-            <span className="text-muted-foreground">•</span>
-            <Link href="/products?category=lighting" className="text-sm text-primary hover:underline">
-              Lighting
-            </Link>
-            <span className="text-muted-foreground">•</span>
-            <Link href="/products?category=decor" className="text-sm text-primary hover:underline">
-              Decor
-            </Link>
-            <span className="text-muted-foreground">•</span>
-            <Link href="/products?category=textiles" className="text-sm text-primary hover:underline">
-              Textiles
-            </Link>
+          <div className="text-sm text-muted-foreground">
+            <p>
+              Looking for something specific?{" "}
+              <Link href="/contact" className="text-primary hover:underline">
+                Let us know
+              </Link>{" "}
+              and we'll help you find it.
+            </p>
           </div>
         </div>
       </div>
-    </div>
+    </Layout>
   )
 }

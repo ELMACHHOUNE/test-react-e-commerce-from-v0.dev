@@ -18,7 +18,6 @@ interface Product {
 
 interface WishlistState {
   items: Product[]
-  itemCount: number
 }
 
 type WishlistAction =
@@ -32,36 +31,26 @@ const WishlistContext = createContext<{
   dispatch: React.Dispatch<WishlistAction>
   addToWishlist: (product: Product) => void
   removeFromWishlist: (id: number) => void
-  clearWishlist: () => void
   isInWishlist: (id: number) => boolean
+  clearWishlist: () => void
 } | null>(null)
 
 const wishlistReducer = (state: WishlistState, action: WishlistAction): WishlistState => {
   switch (action.type) {
     case "ADD_ITEM": {
       const existingItem = state.items.find((item) => item.id === action.payload.id)
-
       if (existingItem) {
-        return state // Item already in wishlist
+        return state
       }
-
-      const updatedItems = [...state.items, action.payload]
-      return {
-        items: updatedItems,
-        itemCount: updatedItems.length,
-      }
+      return { items: [...state.items, action.payload] }
     }
 
     case "REMOVE_ITEM": {
-      const updatedItems = state.items.filter((item) => item.id !== action.payload)
-      return {
-        items: updatedItems,
-        itemCount: updatedItems.length,
-      }
+      return { items: state.items.filter((item) => item.id !== action.payload) }
     }
 
     case "CLEAR_WISHLIST":
-      return { items: [], itemCount: 0 }
+      return { items: [] }
 
     case "LOAD_WISHLIST":
       return action.payload
@@ -74,7 +63,6 @@ const wishlistReducer = (state: WishlistState, action: WishlistAction): Wishlist
 export function WishlistProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(wishlistReducer, {
     items: [],
-    itemCount: 0,
   })
 
   const { toast } = useToast()
@@ -98,17 +86,6 @@ export function WishlistProvider({ children }: { children: React.ReactNode }) {
   }, [state])
 
   const addToWishlist = (product: Product) => {
-    const existingItem = state.items.find((item) => item.id === product.id)
-
-    if (existingItem) {
-      toast({
-        title: "Already in Wishlist",
-        description: `${product.name} is already in your wishlist.`,
-        variant: "default",
-      })
-      return
-    }
-
     dispatch({ type: "ADD_ITEM", payload: product })
     toast({
       title: "Added to Wishlist",
@@ -124,16 +101,16 @@ export function WishlistProvider({ children }: { children: React.ReactNode }) {
     })
   }
 
+  const isInWishlist = (id: number) => {
+    return state.items.some((item) => item.id === id)
+  }
+
   const clearWishlist = () => {
     dispatch({ type: "CLEAR_WISHLIST" })
     toast({
       title: "Wishlist Cleared",
       description: "All items have been removed from your wishlist.",
     })
-  }
-
-  const isInWishlist = (id: number) => {
-    return state.items.some((item) => item.id === id)
   }
 
   return (
@@ -143,8 +120,8 @@ export function WishlistProvider({ children }: { children: React.ReactNode }) {
         dispatch,
         addToWishlist,
         removeFromWishlist,
-        clearWishlist,
         isInWishlist,
+        clearWishlist,
       }}
     >
       {children}

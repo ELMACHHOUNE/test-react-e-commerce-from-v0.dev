@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import { Heart, Trash2, ShoppingCart } from "lucide-react"
+import { Heart, ShoppingCart } from "lucide-react"
 import { useWishlist } from "@/contexts/wishlist-context"
 import { useCart } from "@/contexts/cart-context"
 import { CustomButton } from "@/components/ui/custom-button"
@@ -16,10 +16,7 @@ export function WishlistSheet() {
 
   const handleAddToCart = (product: any) => {
     addToCart(product)
-  }
-
-  const handleRemoveFromWishlist = (id: number) => {
-    removeFromWishlist(id)
+    removeFromWishlist(product.id)
   }
 
   return (
@@ -27,8 +24,8 @@ export function WishlistSheet() {
       <SheetTrigger asChild>
         <CustomButton variant="ghost" size="icon" className="relative">
           <Heart className="h-5 w-5" />
-          {state.itemCount > 0 && (
-            <Badge className="absolute -right-2 -top-2 h-5 w-5 rounded-full p-0 text-xs">{state.itemCount}</Badge>
+          {state.items.length > 0 && (
+            <Badge className="absolute -right-2 -top-2 h-5 w-5 rounded-full p-0 text-xs">{state.items.length}</Badge>
           )}
         </CustomButton>
       </SheetTrigger>
@@ -36,9 +33,9 @@ export function WishlistSheet() {
         <SheetHeader>
           <SheetTitle>Wishlist</SheetTitle>
           <SheetDescription>
-            {state.itemCount === 0
+            {state.items.length === 0
               ? "Your wishlist is empty"
-              : `${state.itemCount} item${state.itemCount > 1 ? "s" : ""} in your wishlist`}
+              : `${state.items.length} item${state.items.length > 1 ? "s" : ""} in your wishlist`}
           </SheetDescription>
         </SheetHeader>
 
@@ -62,39 +59,38 @@ export function WishlistSheet() {
 
                       <div className="flex-1 min-w-0">
                         <h4 className="font-medium text-sm truncate">{item.name}</h4>
-                        <p className="text-sm text-muted-foreground">${item.price.toFixed(2)}</p>
-                        <Badge variant={item.inStock ? "secondary" : "destructive"} className="text-xs mt-1">
-                          {item.inStock ? "In Stock" : "Out of Stock"}
-                        </Badge>
+                        <p className="text-sm text-muted-foreground">{item.category}</p>
+                        <p className="text-sm font-medium">${item.price.toFixed(2)}</p>
+                      </div>
 
-                        <div className="flex items-center space-x-2 mt-2">
-                          <CustomButton
-                            variant="outline"
-                            size="sm"
-                            onClick={() => handleAddToCart(item)}
-                            disabled={!item.inStock}
-                          >
-                            <ShoppingCart className="h-3 w-3 mr-1" />
-                            Add to Cart
-                          </CustomButton>
+                      <div className="flex flex-col space-y-2">
+                        <CustomButton
+                          size="sm"
+                          onClick={() => handleAddToCart(item)}
+                          disabled={!item.inStock}
+                          className="text-xs"
+                        >
+                          <ShoppingCart className="h-3 w-3 mr-1" />
+                          Add to Cart
+                        </CustomButton>
 
-                          <CustomButton
-                            variant="ghost"
-                            size="icon"
-                            className="h-8 w-8 text-destructive hover:text-destructive"
-                            onClick={() => handleRemoveFromWishlist(item.id)}
-                          >
-                            <Trash2 className="h-3 w-3" />
-                          </CustomButton>
-                        </div>
+                        <CustomButton
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => removeFromWishlist(item.id)}
+                          className="text-xs text-destructive hover:text-destructive"
+                        >
+                          <Heart className="h-3 w-3 mr-1" />
+                          Remove
+                        </CustomButton>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="border-t pt-4 space-y-4">
-                <CustomButton variant="outline" className="w-full" onClick={clearWishlist}>
+              <div className="border-t pt-4">
+                <CustomButton variant="outline" onClick={clearWishlist} className="w-full">
                   Clear Wishlist
                 </CustomButton>
               </div>
