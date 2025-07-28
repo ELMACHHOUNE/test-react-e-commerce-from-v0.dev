@@ -1,0 +1,100 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Minimalist Ceramic Vase",
+      "description": "Elegant handcrafted ceramic vase with clean lines and modern aesthetic",
+      "price": 89.99,
+      "category": "Home Decor",
+      "image": "/placeholder.svg?height=400&width=400",
+      "images": [
+        "/placeholder.svg?height=400&width=400",
+        "/placeholder.svg?height=400&width=400",
+        "/placeholder.svg?height=400&width=400"
+      ],
+      "inStock": true,
+      "rating": 4.8,
+      "reviews": 24
+    },
+    {
+      "id": 2,
+      "name": "Modern Table Lamp",
+      "description": "Contemporary table lamp with adjustable brightness and sleek design",
+      "price": 129.99,
+      "category": "Lighting",
+      "image": "/placeholder.svg?height=400&width=400",
+      "images": [
+        "/placeholder.svg?height=400&width=400",
+        "/placeholder.svg?height=400&width=400",
+        "/placeholder.svg?height=400&width=400"
+      ],
+      "inStock": true,
+      "rating": 4.6,
+      "reviews": 18
+    },
+    {
+      "id": 3,
+      "name": "Geometric Wall Art",
+      "description": "Abstract geometric wall art piece perfect for modern interiors",
+      "price": 159.99,
+      "category": "Art",
+      "image": "/placeholder.svg?height=400&width=400",
+      "images": [
+        "/placeholder.svg?height=400&width=400",
+        "/placeholder.svg?height=400&width=400",
+        "/placeholder.svg?height=400&width=400"
+      ],
+      "inStock": true,
+      "rating": 4.9,
+      "reviews": 31
+    },
+    {
+      "id": 4,
+      "name": "Minimalist Throw Pillow",
+      "description": "Soft cotton throw pillow with subtle texture and neutral tones",
+      "price": 39.99,
+      "category": "Textiles",
+      "image": "/placeholder.svg?height=400&width=400",
+      "images": [
+        "/placeholder.svg?height=400&width=400",
+        "/placeholder.svg?height=400&width=400",
+        "/placeholder.svg?height=400&width=400"
+      ],
+      "inStock": true,
+      "rating": 4.7,
+      "reviews": 42
+    },
+    {
+      "id": 5,
+      "name": "Scandinavian Coffee Table",
+      "description": "Clean-lined coffee table with natural wood finish and modern design",
+      "price": 299.99,
+      "category": "Furniture",
+      "image": "/placeholder.svg?height=400&width=400",
+      "images": [
+        "/placeholder.svg?height=400&width=400",
+        "/placeholder.svg?height=400&width=400",
+        "/placeholder.svg?height=400&width=400"
+      ],
+      "inStock": false,
+      "rating": 4.5,
+      "reviews": 15
+    },
+    {
+      "id": 6,
+      "name": "Modern Bookshelf",
+      "description": "Floating bookshelf with invisible mounting system and clean design",
+      "price": 79.99,
+      "category": "Storage",
+      "image": "/placeholder.svg?height=400&width=400",
+      "images": [
+        "/placeholder.svg?height=400&width=400",
+        "/placeholder.svg?height=400&width=400",
+        "/placeholder.svg?height=400&width=400"
+      ],
+      "inStock": true,
+      "rating": 4.4,
+      "reviews": 28
+    }
+  ]
+}
