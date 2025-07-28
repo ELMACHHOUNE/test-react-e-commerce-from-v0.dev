@@ -14,11 +14,6 @@ export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { isAuthenticated } = useAuth()
 
-  const handleSearch = (query: string) => {
-    console.log("Searching for:", query)
-    // Implement search functionality
-  }
-
   return (
     <nav className="sticky top-0 z-50 border-b border-accent/20 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4">
@@ -50,7 +45,7 @@ export function Navbar() {
 
           {/* Search Bar - Desktop */}
           <div className="hidden lg:block">
-            <SearchForm onSearch={handleSearch} />
+            <SearchForm />
           </div>
 
           {/* Desktop Actions */}
@@ -73,7 +68,7 @@ export function Navbar() {
           <div className="md:hidden border-t border-accent/20 py-4">
             <div className="flex flex-col space-y-4">
               {/* Mobile Search */}
-              <SearchForm onSearch={handleSearch} />
+              <SearchForm />
 
               {/* Mobile Navigation Links */}
               <Link
